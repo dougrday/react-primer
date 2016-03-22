@@ -1,0 +1,31 @@
+@import "flexboxgrid.min.css";
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic);
+
+/* Variables */
+$blue: #5bb7db;
+$green: #60b044;
+$red: #ff0000;
+$dark-gray: #4d4d4d;
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+body, input, button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: $dark-gray;
+}
+
+@media screen and (min-width: 750px) and (min-height: 700px) {
+    body, input, button {
+        font-size: 2vmin;
+    }
+}
+
+#app {
+    height:100%;
+}

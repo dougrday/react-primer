@@ -4,7 +4,7 @@
   "description": "Starter kit for creating apps with React and Redux",
   "scripts": {
     "prestart": "npm run remove-dist",
-    "start": "parallelshell \"npm run lint:tools\" \"npm run test:watch\" \"npm run open:src\"",
+    "start": "parallelshell \"npm run lint:tools\" \"npm run open:src\"",
     "open:src": "babel-node tools/srcServer.es6",
     "open:dist": "babel-node tools/distServer.es6",
     "lint:tools": "eslint webpack.config.js tools",
@@ -12,9 +12,7 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.es6",
     "prebuild": "npm run clean-dist && npm run build:html",
-    "build": "npm run test && babel-node tools/build.es6 && npm run open:dist",
-    "test": "cross-env NODE_ENV=test mocha --reporter progress --compilers js:babel-core/register --recursive \"./src/**/*.spec.*\"",
-    "test:watch": "npm run test -- --watch"
+    "build": "babel-node tools/build.es6 && npm run open:dist"
   },
   "author": "Cory House",
   "license": "MIT",
@@ -22,14 +20,10 @@
     "babel-polyfill": "6.7.2",
     "babel-preset-stage-0": "6.5.0",
     "connect-history-api-fallback": "1.1.0",
-    "immutable": "3.7.6",
     "object-assign": "4.0.1",
     "react": "0.14.7",
     "react-dom": "0.14.7",
-    "react-redux": "4.4.0",
     "react-router": "2.0.0",
-    "redux": "3.3.1",
-    "redux-thunk": "2.0.1"
   },
   "devDependencies": {
     "babel-cli": "6.5.1",
@@ -42,7 +36,6 @@
     "babel-preset-react": "6.5.0",
     "babel-preset-stage-1": "6.5.0",
     "browser-sync": "2.11.1",
-    "chai": "3.4.1",
     "cheerio": "0.19.0",
     "colors": "1.1.2",
     "cross-env": "1.0.7",
@@ -52,7 +45,6 @@
     "eslint-plugin-react": "4.0.0",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.8.5",
-    "mocha": "2.3.4",
     "node-sass": "3.4.2",
     "parallelshell": "2.0.0",
     "react-transform-catch-errors": "1.0.1",

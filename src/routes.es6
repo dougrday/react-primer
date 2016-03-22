@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from './containers/App';
-import MainPage from './containers/MainPage';
-import AboutPage from './containers/AboutPage';
-import NotFoundPage from './containers/NotFoundPage';
+import App from './components/App';
+import MainPage from './components/MainPage';
+import AboutPage from './components/AboutPage';
+import NotFoundPage from './components/NotFoundPage';
 
 export default (
   <Route path="/" component={App}>

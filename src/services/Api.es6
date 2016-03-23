@@ -8,13 +8,13 @@ async function apiCall(uri, options = {}, payload = null) {
 }
 
 function jsonOptions(method, payload) {
-    var options = {
+    let options = {
         method: method,
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
-    }
+    };
     if (payload) {
         options.body = JSON.stringify(payload);
     }
@@ -47,4 +47,6 @@ export class ApiClass {
 }
 
 // Create a singleton instance of our service
-export const Api = new ApiClass();
+const Api = new ApiClass();
+
+export default Api;

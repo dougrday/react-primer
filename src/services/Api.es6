@@ -1,5 +1,6 @@
-async function apiCall(uri, options = {}, payload = null) {
-    let response = await fetch(uri, options);
+async function apiCall(url, options = {}) {
+    let request = new Request(url, options);
+    let response = await fetch(request);
     if (response.status >= 200 && response.status < 400) {
         let json = await response.json();
         return json;
@@ -7,18 +8,47 @@ async function apiCall(uri, options = {}, payload = null) {
     else throw response;
 }
 
-function jsonOptions(method, payload) {
-    let options = {
-        method: method,
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        }
-    };
-    if (payload) {
-        options.body = JSON.stringify(payload);
+class ApiContext {
+    constructor(previous) {
+        this.options = {};
+        this.options.headers = new Headers();
+        this.options.headers.set("Accept", "application/json");
+        this.options.headers.set("Content-Type", "application/json");
+
+        // Ensure 'this' refers to ApiContext, because JavaScript.
+        this.url = this.url.bind(this);
+        this.method = this.method.bind(this);
+        this.headers = this.headers.bind(this);
+        this.payload = this.payload.bind(this);
+        this.fetch = this.fetch.bind(this);
     }
-    return options;
+
+    url(url) {
+        this.options.url = url;
+        return this;
+    }
+
+    method(method) {
+        this.options.method = method.toUpperCase();
+        return this;
+    }
+
+    headers(headers) {
+        const keys = Object.keys(headers);
+        for (let k of keys) {
+            this.options.headers.set(k, headers[k]);
+        }
+        return this;
+    }
+
+    payload(payload) {
+        this.options.body = JSON.stringify(payload);
+        return this;
+    }
+
+    fetch() {
+        return apiCall(this.options.url, this.options);
+    }
 }
 
 export class ApiClass {
@@ -29,20 +59,20 @@ export class ApiClass {
         this.delete = this.delete.bind(this);
     }
 
-    async get(uri) {
-        return apiCall(uri, jsonOptions('get'));
+    get(url) {
+        return new ApiContext().url(url).method("GET");
     }
 
-    async post(uri, payload) {
-        return apiCall(uri, jsonOptions('post', payload));
+    post(url) {
+        return new ApiContext().url(url).method("POST");
     }
 
-    async put(uri, payload) {
-        return apiCall(uri, jsonOptions('put', payload));
+    put(url) {
+        return new ApiContext().url(url).method("PUT");
     }
 
-    async delete(uri, payload) {
-        return apiCall(uri, jsonOptions('delete', payload));
+    delete(url) {
+        return new ApiContext().url(url).method("DELETE");
     }
 }
 

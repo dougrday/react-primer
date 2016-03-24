@@ -21,7 +21,7 @@ export default class MainPage extends Component {
     // See https://facebook.github.io/react/docs/component-specs.html#lifecycle-methods
     async componentWillMount() {
         // Load the textbox text from our own API server
-        let result = await Api.get("http://localhost:3002/test");
+        let result = await Api.get("http://localhost:3002/test").fetch();
 
         // Update the state with the result
         this.setState({
